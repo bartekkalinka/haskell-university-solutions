@@ -7,10 +7,10 @@ sort [] = []
 sort (h:[]) = [h]
 sort (h:t) = 
 	let (a, b) = partition h [] [] t 
-	in (sort a) ++ (sort b)
+	in (sort a) ++ [h] ++ (sort b)
 
 partition :: Int -> [Int] -> [Int] -> [Int] -> ([Int], [Int])
-partition pivot acc1 acc2 [] = (acc1 ++ [pivot], acc2)
+partition pivot acc1 acc2 [] = (acc1, acc2)
 partition pivot acc1 acc2 (x: xs) = 
 	if pivot <= x
 		then partition pivot acc1 (x:acc2) xs
