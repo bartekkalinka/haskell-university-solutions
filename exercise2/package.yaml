@@ -46,3 +46,6 @@ tests:
     - -with-rtsopts=-N
     dependencies:
     - exercise2
+    - hspec == 2.*
+    - hspec-core == 2.*
+    - QuickCheck == 2.9.2
