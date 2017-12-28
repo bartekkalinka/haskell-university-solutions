@@ -3,4 +3,4 @@ module Main where
 import Fruits
 
 main :: IO ()
-main = print $ checkout [ Apple, Apple, Orange, Apple ]
+main = print $ checkoutWithPromo [ Apple, Apple, Orange, Apple ]
