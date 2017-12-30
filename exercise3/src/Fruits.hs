@@ -2,7 +2,7 @@ module Fruits
     ( Fruit(..), checkout, checkoutWithPromo
     ) where
 
-data Fruit = Apple | Orange
+data Fruit = Apple | Orange deriving (Show)
 
 checkout :: [Fruit] -> Int
 checkout fruits = 
