@@ -2,9 +2,14 @@ module Main where
 
 import ReversePolishCalculator
 import Data.List.Split
+import Control.Monad
 
 main :: IO ()
-main = 
-    let inp = "10 4 3 + 2 * -"
-        split = splitOn " " inp
-    in print $ calculate split
+main = forever calcOne
+
+calcOne :: IO ()
+calcOne = 
+  do
+    putStrLn ">"
+    exp <- getLine
+    print $ calculate $ splitOn " " exp

@@ -12,6 +12,7 @@ calculate xs = calc xs []
     calc (o:os) acc | isNumber o = calc os ((read o):acc)
     calc (o:os) (x:y:xs) | isOperator o = calc os ((useOperator o x y):xs)
     calc (o:os) _ | isOperator o = Left "too many operators"
+    calc _ _ = Left "neither number nor operator"
 
 isNumber :: String -> Bool
 isNumber str = 
