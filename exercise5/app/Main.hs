@@ -9,24 +9,28 @@ import qualified Data.Map.Strict as Map
 main :: IO ()
 main = 
     do 
-        evalStateT (forever runOne) $ Map.fromList [("res", 5.0)]
+        let stateList = fmap runOne [1..]
+        let listState = sequence stateList
+        evalStateT listState $ Map.empty
         return ()
 
-runOne :: StateT IdentMap IO ()
-runOne = 
+runOne :: Int -> StateT IdentMap IO ()
+runOne counter = 
     do
         lift $ putStrLn ">"
         exp <- lift getLine
-        res <- calcOne exp
+        res <- calcOne counter exp
         lift $ print res
 
-calcOne :: Monad m => String -> StateT IdentMap m (Either String Float)
-calcOne exp = 
+calcOne :: Monad m => Int -> String -> StateT IdentMap m (Either String Float)
+calcOne counter exp = 
     do
         mp <- get
         let res = calculate mp $ splitOn " " exp
         let nmp = case res of 
-                Right f -> Map.insert "res" f mp
+                Right f -> 
+                    let ident = "res" ++ (show counter)
+                     in Map.insert ident f mp
                 Left err -> mp
         put nmp
         return res
