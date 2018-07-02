@@ -15,7 +15,6 @@ main =
 runOne :: StateT IdentMap IO ()
 runOne = 
     do
-        mp <- let ms = get in ms
         lift $ putStrLn ">"
         exp <- lift getLine
         res <- calcOne exp
