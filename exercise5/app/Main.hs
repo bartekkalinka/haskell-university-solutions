@@ -21,9 +21,12 @@ runOne =
         lift $ print res
 
 calcOne :: Monad m => String -> StateT IdentMap m (Either String Float)
-calcOne exp = state (\mp ->
-    case calculate mp $ splitOn " " exp of
-        Right f -> (Right f, Map.insert "res" f mp)
-        Left err -> (Left err, mp)
-    )
-    
+calcOne exp = 
+    do
+        mp <- get
+        let res = calculate mp $ splitOn " " exp
+        let nmp = case res of 
+                Right f -> Map.insert "res" f mp
+                Left err -> mp
+        put nmp
+        return res
